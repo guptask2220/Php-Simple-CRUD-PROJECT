@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User List App</title>
+    <link rel="stylesheet" href="style.css?v=1">
+
+</head>
+<body>
+
+<div class="container">
+    <!-- Left Form -->
+    <div class="form-box">
+        <h3>User Information</h3>
+        <form id="userForm">
+            <input type="hidden" name="id" id="userId">
+
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter email" required>
+
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" placeholder="Enter age" required>
+
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+                <option value="">Select gender</option>
+                <option>Male</option>
+                <option>Female</option>
+            </select>
+
+            <div class="form-actions">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Right Table -->
+    <!-- Right Table -->
+<div class="list-box">
+    <h3>User List</h3>
+    <div class="table-responsive">  <!-- 👈 Add this -->
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 120px;">Name</th>
+                    <th style="width: 180px;">Email</th>
+                    <th style="width: 80px;">Age</th>
+                    <th style="width: 100px;">Gender</th>
+                    <th style="width: 100px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="userTable"></tbody>
+        </table>
+    </div>
+</div>
+
+
+
+<script>
+// Load users
+function loadUsers() {
+    fetch("list.php")
+    .then(res => res.text())
+    .then(data => document.getElementById("userTable").innerHTML = data);
+}
+loadUsers();
+
+// Form submit
+document.getElementById("userForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    let formData = new FormData(this);
+    let url = formData.get("id") ? "ajax/edit.php" : "ajax/submit.php";
+    fetch(url, { method: "POST", body: formData })
+    .then(res => res.text())
+    .then(data => {
+        if (data.trim() === "success") {
+            loadUsers();
+            this.reset();
+            document.getElementById("userId").value = "";
+        } else {
+            alert("Error: " + data);
+        }
+    });
+});
+
+// Edit/Delete actions
+document.getElementById("userTable").addEventListener("click", function(e) {
+    if (e.target.classList.contains("deleteBtn")) {
+        let id = e.target.dataset.id;
+        let formData = new FormData();
+        formData.append("id", id);
+        fetch("ajax/delete.php", { method: "POST", body: formData })
+        .then(res => res.text())
+        .then(data => {
+            if (data.trim() === "success") {
+                loadUsers();
+            } else {
+                alert("Delete failed!");
+            }
+        });
+    }
+
+    if (e.target.classList.contains("editBtn")) {
+        document.getElementById("userId").value = e.target.dataset.id;
+        document.getElementById("name").value = e.target.dataset.name;
+        document.getElementById("email").value = e.target.dataset.email;
+        document.getElementById("age").value = e.target.dataset.age;
+        document.getElementById("gender").value = e.target.dataset.gender;
+    }
+});
+</script>
+
+</body>
+</html>

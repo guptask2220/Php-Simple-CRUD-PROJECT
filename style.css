@@ -1,0 +1,202 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background:#f3f4f6;
+    padding: 40px;
+}
+
+/* Container */
+.container {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 30px;
+    background:#f7fafc;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    align-items: start;
+}
+
+/* Form box */
+.form-box {
+    display: flex;
+    flex-direction: column;
+}
+.form-box h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 20px;
+}
+
+/* Label */
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: #374151;
+    font-size: 14px;
+}
+
+/* Inputs + Select */
+.form-box input,
+.form-box select {
+    width: 100%;
+    height: 42px;
+    padding: 10px 12px;
+    margin-bottom: 18px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #f7fafc;
+}
+.form-box input:focus,
+.form-box select:focus {
+    border-color: #2563eb;
+    outline: none;
+}
+
+/* Form Button */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+.form-box button {
+    height: 42px;
+    padding: 0 18px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.form-box button:hover {
+    background: #1d4ed8;
+}
+
+/* Table */
+.list-box h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #111827;
+}
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 14px;
+    background-color:#f7fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+}
+thead {
+    background: #f9fafb;
+}
+th, td {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+    color: #374151;
+}
+th {
+    font-weight: 600;
+}
+tbody tr:last-child td {
+    border-bottom: none;
+}
+tr:hover td {
+    background: #f3f4f6;
+}
+
+/* Action buttons */
+.action-btn {
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 500;
+    margin: 0 4px;
+}
+.editBtn {
+    color: black /* Amber */
+}
+.deleteBtn {
+    color:black;
+}
+.action-btn:hover {
+    text-decoration: underline;
+}
+/* Table responsive wrapper */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;  /* Mobile me horizontal scroll allow karega */
+}
+
+/* Table cells text wrapping */
+td {
+    word-wrap: break-word;   /* Lamba text break ho jaye */
+    white-space: normal;     /* Line break allow ho */
+    max-width: 150px;        /* Har column ka max width fix */
+}
+/* Container responsive */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr; /* Single column mobile me */
+    }
+
+    .form-box {
+        margin-bottom: 20px; /* Form aur table me gap */
+    }
+}
+
+/* Table cells flexible width */
+td, th {
+    max-width: none; /* Mobile me column overflow na ho */
+}
+
+/* Table wrapper already hai */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;  /* horizontal scroll mobile me */
+}
+
+/* Table cells text wrapping */
+table th, 
+table td {
+    word-wrap: break-word;   /* Purane browser ke liye */
+    word-break: break-word;  /* Modern browser ke liye */
+    white-space: normal;     /* Line break allow */
+    max-width: 200px;        /* Column ka max width fix */
+    overflow-wrap: anywhere; /* Extra safety */
+}
+@media (max-width: 768px) {
+    .container {
+        display: flex;          /* Flex use karo */
+        gap: 20px;
+        overflow-x: auto;       /* Horizontal scroll allow */
+        padding: 20px;
+    }
+
+    .form-box {
+        flex: 0 0 320px;        /* Form fixed width */
+    }
+
+    .list-box {
+        flex: 0 0 600px;        /* Table ka width fixed, adjust karo */
+    }
+
+    .table-responsive {
+        overflow-x: auto;       /* Table ke andar horizontal scroll */
+    }
+}
